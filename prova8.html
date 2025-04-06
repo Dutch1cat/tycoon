@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Banca</title>
+</head>
+<body>
+  <h1>Saldo: $<span id="saldo"></span></h1>
+  <h1>Tasche: $<span id="tasche"></span></h1>
+
+  <input type="number" id="importo" placeholder="Inserisci importo">
+  <br><br>
+  <button onclick="deposito()">Deposita</button>
+  <button onclick="prelievo()">Preleva</button>
+  
+
+  <h2>Lavori</h2>
+  <button onclick="consegnaGiornali()">📬 Consegna Giornali (+50$)</button>
+  <button onclick="tagliaErba()">🌿 Taglia l'erba (+100$)</button>
+  <button onclick="vendi()">🛍️ Vendi (+300$)</button>
+  <button onclick="lava_auto()">🚿 Lava auto (+120$)</button>
+
+  <h2>Negozio</h2>
+  <button onclick="compra('zaino')">🎒 Compra Zaino ($500)</button>
+  <button onclick="compra('bicicletta')">🚲 Compra Bicicletta ($1200)</button>
+  <button onclick="compra('licenza_venditore')">🎟️ Acquista Licenza da Venditore Ambulante ($1500)</button>
+  <button onclick="compra('bancarella')">🛒 Acquista Bancarella ($2500)</button>
+  <button onclick="compra('tagliaerba')">✂ Acquista TagliaErba (1000$)</button>
+  <button onclick="compra('oggetti')">✂ Acquista degli oggetti da vendere (400$)</button>
+  <button onclick="compra('straccio')">✂ Acquista straccio (200$)</button>
+  <button onclick="compra('bicicletta elettrica')">✂ Acquista bicicletta elettrica (2000$)</button>
+
+  <h2>Gioco d'Azzardo</h2>
+  <input type="number" id="scommessa" placeholder="Quanto vuoi scommettere?">
+  <button onclick="giocoDazzardo()">🎰 Scommetti</button>
+
+  
+  
+
+  <h2>Inventario</h2>
+  <ul id="inventario">
+    <!-- Qui verranno mostrati gli oggetti acquistati -->
+  </ul>
+  <div id="fabbrica">
+    <h2>💼 Fabbrica</h2>
+    <button id="acquistaLicenza" onclick="compraLicenza()">Acquista Licenza (4000$)</button>
+    <button id="upgrade1" onclick="upgradeFabbrica(1)" disabled>Upgrade Livello 1 (1200$)</button>
+    <button id="upgrade2" onclick="upgradeFabbrica(2)" disabled>Upgrade Livello 2 (3200$)</button>
+    <button id="upgrade3" onclick="upgradeFabbrica(3)" disabled>Upgrade Livello 3 (6500$)</button>
+    <button id="upgrade4" onclick="upgradeFabbrica(4)" disabled>Upgrade Livello 4 (25000$)</button>
+    <p>💵 Produzione: <span id="produzione">0$ al secondo</span></p>
+    <p>📈 Livello: <span id="livello">0</span></p>
+  </div>
+
+
+  <script src="banca.js"></script>
+  <style>
+    #fabbrica {
+    background-color: #222;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  button {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+
+  button:disabled {
+    background-color: #888;
+    cursor: not-allowed;
+  }
+
+  </style>
+</body>
+</html>
