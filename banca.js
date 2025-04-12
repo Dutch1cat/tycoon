@@ -122,7 +122,7 @@ aggiornaFabbricaUI();
 
 function deposito() {
     let importo = Number(document.getElementById("importo").value);
-    if (import < 0) {
+    if (importo < 0) {
         alert("non puoi depositare un numero negativo di soldi")
     }
     if (!isNaN(importo)) {
@@ -141,7 +141,7 @@ function deposito() {
 
 function prelievo() {
     let importo = Number(document.getElementById("importo").value);
-    if (import < 0) {
+    if (importo < 0) {
         alert("non puoi prelevare un numero negativo di soldi")
     }
     if (!isNaN(importo)) {
