@@ -462,7 +462,7 @@ function vendiAzione(index) {
 function aggiornaPrezzi() {
     aziende.forEach(azienda => {
         // Cambia prezzo casualmente tra -5 e +5
-        let variazione = Math.floor(Math.random() * 61) - 25;
+        let variazione = Math.floor(Math.random() * 151) - 65;
         azienda.prezzo += variazione;
         if (variazione > 0) {
             azienda.cambio = "+" + variazione
