@@ -444,6 +444,7 @@ function compraAzione(index) {
     let azienda = aziende[index];
     if (Number(document.getElementById("sell_buy_number" + index).value) < 0) {
         alert("non puoi comprare un numero negativo di azioni!")
+        return;
     }
     if (tasche >= azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value)) {
         tasche -= azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value);
@@ -459,6 +460,7 @@ function vendiAzione(index) {
     let azienda = aziende[index];
     if (Number(document.getElementById("sell_buy_number" + index).value) < 0) {
         alert("non puoi vendere un numero negativo di azioni!")
+        return;
     }
     if (azienda.possedute >= Number(document.getElementById("sell_buy_number" + index).value)) {
         azienda.possedute -= Number(document.getElementById("sell_buy_number" + index).value);
