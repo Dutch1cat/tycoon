@@ -25,12 +25,13 @@ function compraLicenza() {
         aggiornaFabbricaUI();
         alert("Hai comprato la licenza per la fabbrica!");
         abilitaUpgrade(1);
-    }
-    else {
+        aggiornaProduzione(); // AVVIA LA PRODUZIONE
+    } else {
         alert("❌ Non hai abbastanza soldi per comprare la licenza!");
     }
     aggiornaUI();
 }
+
 
 // Funzione per upgrade della fabbrica
 function upgradeFabbrica(livello) {
@@ -100,12 +101,19 @@ function aggiornaFabbricaUI() {
 }
 
 // Funzione per aggiornare la produzione
+let intervalloProduzione = null;
+
 function aggiornaProduzione() {
-    setInterval(() => {
-        saldo += guadagnoFabbrica;
-        aggiornaFabbricaUI();
+    if (intervalloProduzione !== null) return; // già in funzione
+
+    intervalloProduzione = setInterval(() => {
+        if (guadagnoFabbrica > 0) {
+            saldo += guadagnoFabbrica;
+            aggiornaFabbricaUI();
+        }
     }, tempoProduzione);
 }
+
 
 // Mostra saldo all'avvio
 aggiornaFabbricaUI();
@@ -397,6 +405,86 @@ function lava_auto() {
     }, cd_diminuito_a); 
 
 }
+
+let aziende = [
+    { nome: "Minecraft Inc.", prezzo: 100, possedute: 0 , cambio: 0},
+    { nome: "EnderTech", prezzo: 300, possedute: 0, cambio: 0 },
+    { nome: "Panini FC", prezzo: 200, possedute: 0, cambio: 0 },
+    { nome: "Micrsoft", prezzo: 1000, possedute: 0, cambio: 0 },
+    { nome: "Tesla (absolutely real)", prezzo: 800, possedute: 0, cambio: 0 },
+];
+
+function mostraAziende() {
+    let container = document.getElementById("azioniContainer");
+    container.innerHTML = "";
+
+    aziende.forEach((azienda, index) => {
+        let div = document.createElement("div");
+        div.innerHTML = `
+            <strong>${azienda.nome}</strong><br>
+            Prezzo: $${azienda.prezzo}<br>
+            Azioni possedute: ${azienda.possedute}<br>
+            <button onclick="compraAzione(${index})">Compra</button>
+            <button onclick="vendiAzione(${index})">Vendi</button>
+            <input type="number" placeholder="quanto vuoi vendere/comprare?" id="sell_buy_number${index}"></input>
+            Ultima variazione: ${azienda.cambio}
+            <hr>
+        `;
+        container.appendChild(div);
+    });
+
+    aggiornaUI();
+}
+
+function compraAzione(index) {
+    let azienda = aziende[index];
+    if (tasche >= azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value)) {
+        tasche -= azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value);
+        azienda.possedute += Number(document.getElementById("sell_buy_number" + index).value);
+    } else {
+        alert("Non hai abbastanza soldi!");
+    }
+    mostraAziende();
+    aggiornaUI();
+}
+
+function vendiAzione(index) {
+    let azienda = aziende[index];
+    if (azienda.possedute >= Number(document.getElementById("sell_buy_number" + index).value)) {
+        azienda.possedute -= Number(document.getElementById("sell_buy_number" + index).value);
+        tasche += azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value);
+    } else {
+        alert("Non hai azioni da vendere!");
+    }
+    mostraAziende();
+    aggiornaUI();
+}
+function aggiornaPrezzi() {
+    aziende.forEach(azienda => {
+        // Cambia prezzo casualmente tra -5 e +5
+        let variazione = Math.floor(Math.random() * 61) - 25;
+        azienda.prezzo += variazione;
+        if (variazione > 0) {
+            azienda.cambio = "+" + variazione
+        }
+        else {
+            azienda.cambio = variazione
+        }
+       
+        // Evitiamo prezzi negativi
+        if (azienda.prezzo < 1) azienda.prezzo = 1;
+    });
+
+    mostraAziende(); // aggiorna la visualizzazione
+    aggiornaUI();
+}
+setInterval(aggiornaPrezzi, 10000);
+// Avvia l’interfaccia all’inizio
+mostraAziende();
+
+
+// All'avvio, mostra le aziende
+mostraAziende();
 
 // Mostra saldo iniziale all’avvio
 aggiornaUI();
