@@ -330,6 +330,10 @@ function compra(element) {
 }
 function giocoDazzardo() {
     let scommessa = Number(document.getElementById("scommessa").value);
+    if (scommessa < 0) {
+        alert("non puoi scommettere meno di 0")
+        return;
+    }
     if (scommessa > tasche) {
         alert("non hai abbastanza soldi!");
         return;
@@ -438,6 +442,9 @@ function mostraAziende() {
 
 function compraAzione(index) {
     let azienda = aziende[index];
+    if (Number(document.getElementById("sell_buy_number" + index).value) < 0) {
+        alert("non puoi comprare un numero negativo di azioni!")
+    }
     if (tasche >= azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value)) {
         tasche -= azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value);
         azienda.possedute += Number(document.getElementById("sell_buy_number" + index).value);
@@ -450,6 +457,9 @@ function compraAzione(index) {
 
 function vendiAzione(index) {
     let azienda = aziende[index];
+    if (Number(document.getElementById("sell_buy_number" + index).value) < 0) {
+        alert("non puoi vendere un numero negativo di azioni!")
+    }
     if (azienda.possedute >= Number(document.getElementById("sell_buy_number" + index).value)) {
         azienda.possedute -= Number(document.getElementById("sell_buy_number" + index).value);
         tasche += azienda.prezzo*Number(document.getElementById("sell_buy_number" + index).value);
